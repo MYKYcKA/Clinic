@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ClinicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Street" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="House" Type="smallint" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Apartment" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppointmentDate" Type="date" Nullable="false" />
+    <Property Name="HistoryOfIllnessId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppointmentDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MedicineId" Type="int" Nullable="false" />
+    <Property Name="AppointmentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Composition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IngredientId" Type="int" Nullable="false" />
+    <Property Name="MedicineId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contraindication">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="MedicineId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="255" />
+    <Property Name="Surname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Specialization" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AddressId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HistoryOfIllness">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Diagnose" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Start" Type="date" Nullable="false" />
+    <Property Name="End" Type="date" />
+    <Property Name="Rate" Type="smallint" Nullable="false" />
+    <Property Name="Characteristic" Type="text" Nullable="false" />
+    <Property Name="PatientId" Type="int" Nullable="false" />
+    <Property Name="DoctorId" Type="int" Nullable="false" />
+    <Property Name="OnSpecialCount" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ingredients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Medicines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AddressId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Appointme__Appoi__367C1819">
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+    <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppointmentDetails">
+        <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Histo__32AB8735">
+    <End Role="HistoryOfIllness" Type="Self.HistoryOfIllness" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HistoryOfIllness">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="HistoryOfIllnessId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Medic__3587F3E0">
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="1" />
+    <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AppointmentDetails">
+        <PropertyRef Name="MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Compositi__Ingre__3A4CA8FD">
+    <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Composition" Type="Self.Composition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ingredients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Composition">
+        <PropertyRef Name="IngredientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Compositi__Medic__3B40CD36">
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Composition" Type="Self.Composition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Composition">
+        <PropertyRef Name="MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contraind__Medic__29221CFB">
+    <End Role="Medicines" Type="Self.Medicines" Multiplicity="1" />
+    <End Role="Contraindication" Type="Self.Contraindication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicines">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contraindication">
+        <PropertyRef Name="MedicineId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Contraind__Patie__282DF8C2">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Contraindication" Type="Self.Contraindication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contraindication">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Doctor__AddressI__25518C17">
+    <End Role="Address" Type="Self.Address" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HistoryOf__Docto__2EDAF651">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="HistoryOfIllness" Type="Self.HistoryOfIllness" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryOfIllness">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HistoryOf__Patie__2DE6D218">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="HistoryOfIllness" Type="Self.HistoryOfIllness" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoryOfIllness">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Patient__Address__395884C4">
+    <End Role="Address" Type="Self.Address" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ClinicModelStoreContainer">
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppointmentDetails" EntityType="Self.AppointmentDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Composition" EntityType="Self.Composition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contraindication" EntityType="Self.Contraindication" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistoryOfIllness" EntityType="Self.HistoryOfIllness" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medicines" EntityType="Self.Medicines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Appointme__Appoi__367C1819" Association="Self.FK__Appointme__Appoi__367C1819">
+      <End Role="Appointment" EntitySet="Appointment" />
+      <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Histo__32AB8735" Association="Self.FK__Appointme__Histo__32AB8735">
+      <End Role="HistoryOfIllness" EntitySet="HistoryOfIllness" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Medic__3587F3E0" Association="Self.FK__Appointme__Medic__3587F3E0">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Compositi__Ingre__3A4CA8FD" Association="Self.FK__Compositi__Ingre__3A4CA8FD">
+      <End Role="Ingredients" EntitySet="Ingredients" />
+      <End Role="Composition" EntitySet="Composition" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Compositi__Medic__3B40CD36" Association="Self.FK__Compositi__Medic__3B40CD36">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="Composition" EntitySet="Composition" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contraind__Medic__29221CFB" Association="Self.FK__Contraind__Medic__29221CFB">
+      <End Role="Medicines" EntitySet="Medicines" />
+      <End Role="Contraindication" EntitySet="Contraindication" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Contraind__Patie__282DF8C2" Association="Self.FK__Contraind__Patie__282DF8C2">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Contraindication" EntitySet="Contraindication" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Doctor__AddressI__25518C17" Association="Self.FK__Doctor__AddressI__25518C17">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HistoryOf__Docto__2EDAF651" Association="Self.FK__HistoryOf__Docto__2EDAF651">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="HistoryOfIllness" EntitySet="HistoryOfIllness" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HistoryOf__Patie__2DE6D218" Association="Self.FK__HistoryOf__Patie__2DE6D218">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="HistoryOfIllness" EntitySet="HistoryOfIllness" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Patient__Address__395884C4" Association="Self.FK__Patient__Address__395884C4">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Patient" EntitySet="Patient" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

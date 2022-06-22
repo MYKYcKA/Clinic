@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b97b456906d46978ab4e55ec5fce3a0" Name="Diagram1" ZoomLevel="69">
+        <EntityTypeShape EntityType="ClinicModel.Address" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Appointment" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.AppointmentDetails" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Composition" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Contraindication" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Doctor" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.HistoryOfIllness" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Ingredients" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Medicines" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicModel.Patient" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="ClinicModel.FK__Doctor__AddressI__25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Patient__Address__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Appointme__Appoi__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Appointme__Histo__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Appointme__Medic__3587F3E0" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Compositi__Ingre__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Compositi__Medic__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Contraind__Medic__29221CFB" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__Contraind__Patie__282DF8C2" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__HistoryOf__Docto__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicModel.FK__HistoryOf__Patie__2DE6D218" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
